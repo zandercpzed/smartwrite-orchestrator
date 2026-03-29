@@ -24,27 +24,7 @@ export class OrchestratorSettingsTab extends PluginSettingTab {
 		const { containerEl } = this;
 		containerEl.empty();
 
-		this.renderOrchestratorSection(containerEl);
 		this.renderInstalledModulesSection(containerEl);
-	}
-
-	// ── Orchestrator settings ─────────────────────────────────────────────────
-
-	private renderOrchestratorSection(el: HTMLElement): void {
-		new Setting(el).setName("Geral").setHeading();
-
-		new Setting(el)
-			.setName("GitHub owner")
-			.setDesc("Conta GitHub de onde os módulos SmartWrite são instalados.")
-			.addText((text) =>
-				text
-					.setPlaceholder("zandercpzed")
-					.setValue(this.orchestrator.settings.githubOwner)
-					.onChange(async (value) => {
-						this.orchestrator.settings.githubOwner = value.trim();
-						await this.orchestrator.saveSettings();
-					})
-			);
 	}
 
 	// ── Installed modules settings ────────────────────────────────────────────

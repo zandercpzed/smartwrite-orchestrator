@@ -65,12 +65,9 @@ export interface OrchestratorSettings {
 	auth: AuthStore;
 	/** Módulos que o usuário instalou via Orchestrator */
 	installedModules: Record<string, string>; // id → version
-	/** GitHub owner dos módulos SmartWrite */
-	githubOwner: string;
 }
 
 export const DEFAULT_SETTINGS: OrchestratorSettings = {
 	auth: {},
 	installedModules: {},
-	githubOwner: "zandercpzed",
 };

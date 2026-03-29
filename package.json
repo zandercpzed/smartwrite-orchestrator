@@ -1,6 +1,6 @@
 {
   "name": "smartwrite-orchestrator",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Hub plugin that installs and orchestrates SmartWrite modules from GitHub.",
   "author": "Zander Catta Preta",
   "license": "MIT",
