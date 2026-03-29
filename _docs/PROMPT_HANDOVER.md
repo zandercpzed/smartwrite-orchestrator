@@ -1,70 +1,75 @@
 # PROMPT DE HANDOVER — SmartWrite Orchestrator
 
 **Gerado em:** 29 de Março de 2026 (EOD)
-**Para:** Próxima sessão de Vibe Coding
+**Versão do Orchestrator na vault:** `0.0.4`
 
 ---
 
-## Contexto Rápido
+## Contexto
 
-Estamos construindo o **SmartWrite Orchestrator** — um plugin hub para o Obsidian que instala e gerencia módulos independentes (Publisher, Companion, Analyzer) via GitHub Releases, com UI unificada em sidebar e auth centralizada.
+Estamos construindo o **SmartWrite Orchestrator** — plugin hub para Obsidian que instala e gerencia módulos independentes (Publisher, Companion, Analyzer) com sidebar unificada.
 
 **Repositório:** `github.com/zandercpzed/smartwrite-orchestrator`
-**Workspace local:** `_ smartwrite/_smartwrite-orchestrator/`
+**Workspace:** `_ smartwrite/_smartwrite-orchestrator/`
+**Vault de testes:** `_ smartwrite/.obsidian/plugins/smartwrite-orchestrator/`
 
 ---
 
-## O Que Foi Feito
+## Estado Atual
 
-- ✅ Documentação de governança completa em `_docs/`
-- ✅ Scaffolding do plugin: `src/`, configs de build, manifest
-- ✅ Build funcional: `npm run build` → `main.js` sem erros
-- ✅ Git sincronizado com GitHub (2 commits)
+O Orchestrator está **funcionando** na vault de testes(`0.0.4`):
 
----
-
-## 🔴 PRIORIDADE #1 DA PRÓXIMA SESSÃO
-
-**Antes de qualquer código novo:** auditar o scaffolding contra os padrões oficiais do Obsidian.
-
-Plugins anteriores do Zander foram **rejeitados** no processo de revisão da comunidade Obsidian. Precisamos garantir conformidade **antes** de avançar.
-
-### O que auditar:
-1. `github.com/obsidianmd/obsidian-sample-plugin` — comparar `manifest.json`, `package.json`, `esbuild.config.mjs`, estrutura de `src/`
-2. `docs.obsidian.md/Plugins/Releasing/Plugin+guidelines` — regras de submissão
-3. Criar skill `.agent/skills/obsidian-plugin-standards/SKILL.md` com as regras compiladas
-4. Corrigir desvios encontrados no scaffolding atual
-
-### Diferenças já identificadas (sem auditar):
-- Nosso `esbuild.config.mjs` usa `builtin-modules` (npm package); o sample usa `node:module` nativo → **verificar**
-- Nosso `esbuild.target` é `es2022`; o sample usa `es2018` → **verificar qual é correto**
-- Nosso `manifest.json` não tem `fundingUrl` → **verificar se obrigatório**
+- ✅ Sidebar com boxes horizontais por módulo (Publisher, Companion, Analyzer)
+- ✅ Botão "Instalar" conectado ao `module-installer.ts` (GitHub raw API)
+- ✅ `OrchestratorSettingsTab` sem dados pessoais — mostra apenas módulos instalados
+- ✅ Build e lint limpos (zero erros)
+- ✅ Escopo MVP documentado em `_docs/ESCOPO_MVP.md`
+- ✅ Skill de versionamento criada (`.agent/skills/smartwrite-versioning/SKILL.md`)
 
 ---
 
-## Próximo Passo após Auditoria
+## 🔴 PRIORIDADE #1 — Fechar Antes de Qualquer Código
 
-Implementar `module-installer.ts` — o componente que:
-1. Recebe a URL do release do `github-fetcher.ts`
-2. Descompacta o `.zip`
-3. Copia `main.js` + `manifest.json` + `styles.css` + `smartwrite.module.json` para `.obsidian/plugins/{id}/`
-4. Registra o módulo na sidebar
+### OPEN-002: Redefinir como o Orchestrator descobre módulos
 
----
+**Problema:** `KNOWN_MODULES` está hardcoded em `src/core/module-registry.ts` com os repos do Zander. Isso é rígido e inadequado.
 
-## Regras Críticas a Lembrar
+**Decisão do Zander:** O Orchestrator deve fazer as **duas coisas**:
+1. Carregar uma **lista default** de módulos oficiais SmartWrite
+2. Permitir que o usuário aponte um **repositório GitHub customizado** para instalar qualquer plugin
 
-- ⛔ **NUNCA abrir o browser sem autorização explícita do Zander** (skill: `browser-policy`)
-- ✅ Alternativas: `read_url_content`, `search_web`, `curl`
-- ✅ Protocolo APAE: Analyze → Plan → Authorize → Execute
-- ✅ Legados (`_ smartwrite-publisher/`, etc.): somente leitura para referência
-- ✅ Caminhos nos docs: sempre relativos à root do workspace
+**Próximo passo:** Apresentar um plano de implementação (APAE) para esta feature antes de codificar qualquer linha.
 
 ---
 
-## Perguntas em Aberto Para o Zander
+## Regras Críticas
 
-1. **Publisher MVP:** Substack apenas, ou Substack + WordPress juntos desde o início? (`DECx-001`)
-2. **Fluxo "Publish Ready":** Obrigatório ou opcional no MVP? (`DECx-002`)
-3. **Submissão ao Community Plugins do Obsidian:** Sim ou não? (`DECx-003`)
-4. **Licenciamento dos módulos:** Todos gratuitos, ou Publisher pago? (`DECx-004`)
+- ⛔ **NUNCA abrir browser sem autorização explícita**  
+- ⛔ **NUNCA hardcodar dados pessoais** (GitHub owner, credenciais, URLs pessoais)
+- ✅ **Protocolo APAE obrigatório** — Analyze → Plan → Authorize → Execute
+- ✅ **Versionamento:** `0.0.X` = deploy vault | `0.X.0` = GitHub push | `1.0.0` = Obsidian Store
+- ✅ **Deploy na vault ≠ push para GitHub** — são ações distintas, autorizar separadamente
+- ✅ Plugins legados (`_ smartwrite-publisher/`, etc.): somente leitura
+
+---
+
+## Convenção de Deploy
+
+```bash
+# Bump de patch (deploy vault de testes)
+node -e "const fs=require('fs'); const p=JSON.parse(fs.readFileSync('package.json')); p.version='X.X.NEW'; fs.writeFileSync('package.json',JSON.stringify(p,null,2)+'\n');"
+node version-bump.mjs
+npm run build
+cp main.js manifest.json styles.css "../.obsidian/plugins/smartwrite-orchestrator/"
+```
+
+---
+
+## Perguntas Abertas Para o Zander
+
+Estas foram identificadas mas são **irrelevantes para o próximo passo imediato** (OPEN-002):
+
+1. Publisher MVP: Substack apenas, ou Substack + WordPress?
+2. Fluxo pré-publicação: obrigatório ou opcional?
+3. Submissão ao Obsidian Community Plugins?
+4. Licenciamento dos módulos?
