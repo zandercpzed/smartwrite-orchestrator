@@ -1,0 +1,118 @@
+/* SmartWrite Orchestrator — styles.css
+ * Estilos base do plugin. Cada módulo pode injetar seus próprios estilos
+ * via a sidebar. Variáveis CSS do Obsidian usadas para theme compatibility.
+ */
+
+/* ── Sidebar Container ────────────────────────────────────────── */
+.smartwrite-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ── Tab Bar ──────────────────────────────────────────────────── */
+.smartwrite-tabs {
+  display: flex;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--background-modifier-border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.smartwrite-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.smartwrite-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: var(--font-ui-small);
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.smartwrite-tab:hover {
+  color: var(--text-normal);
+}
+
+.smartwrite-tab.is-active {
+  color: var(--text-accent);
+  border-bottom-color: var(--text-accent);
+}
+
+/* ── Tab Content Area ─────────────────────────────────────────── */
+.smartwrite-panel {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+/* ── Store / Module List ──────────────────────────────────────── */
+.smartwrite-module-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: var(--radius-m);
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+}
+
+.smartwrite-module-card-info h3 {
+  margin: 0 0 2px 0;
+  font-size: var(--font-ui-medium);
+}
+
+.smartwrite-module-card-info p {
+  margin: 0;
+  font-size: var(--font-ui-small);
+  color: var(--text-muted);
+}
+
+/* ── Buttons ──────────────────────────────────────────────────── */
+.smartwrite-btn {
+  padding: 6px 14px;
+  border-radius: var(--radius-s);
+  font-size: var(--font-ui-small);
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s ease;
+}
+
+.smartwrite-btn:hover { opacity: 0.85; }
+
+.smartwrite-btn-primary {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+.smartwrite-btn-secondary {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+/* ── Status / Badges ──────────────────────────────────────────── */
+.smartwrite-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-s);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.smartwrite-badge-installed {
+  background: var(--color-green-rgb);
+  color: var(--text-on-accent);
+}
+
+.smartwrite-badge-available {
+  background: var(--background-modifier-border);
+  color: var(--text-muted);
+}

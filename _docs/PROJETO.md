@@ -58,7 +58,7 @@ Workspace local (paths relativos à root `_ smartwrite/`):
 ```
 _ smartwrite/
  ┣ _smartwrite-orchestrator/  ← Plugin orquestrador + documentação
- ┃  ┣ _suite/                 ← Documentação viva co-localizada
+ ┃  ┣ _docs/                 ← Documentação viva co-localizada
  ┃  ┗ src/                    ← Código do plugin (a criar)
  ┣ .agent/                    ← Skills e Workflows (nível workspace)
  ┣ shared-configs/            ← tsconfig base
@@ -91,7 +91,7 @@ _smartwrite-orchestrator/
  ┃  ┃  ┗ settings/              ← Painel de settings centralizado
  ┃  ┗ types/
  ┃     ┗ index.ts               ← SmartWriteModule interface
- ┣ _suite/                      ← Documentação do projeto
+ ┣ _docs/                      ← Documentação do projeto
  ┣ main.ts                      ← Entry do Obsidian
  ┣ manifest.json
  ┣ styles.css

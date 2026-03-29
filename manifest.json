@@ -1,0 +1,10 @@
+{
+  "id": "smartwrite-orchestrator",
+  "name": "SmartWrite Orchestrator",
+  "version": "0.1.0",
+  "minAppVersion": "1.4.0",
+  "description": "Hub plugin that installs and orchestrates SmartWrite modules (Publisher, Companion, Analyzer) from GitHub, with centralized auth and a unified sidebar.",
+  "author": "Zander Catta Preta",
+  "authorUrl": "https://github.com/zandercpzed",
+  "isDesktopOnly": true
+}

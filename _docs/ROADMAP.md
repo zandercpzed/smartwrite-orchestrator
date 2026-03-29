@@ -10,7 +10,7 @@
 - [x] Análise competitiva do ecossistema (48 plugins mapeados)
 - [x] Definição da arquitetura de orquestrador
 - [x] Workflows de Vibe Coding definidos (APAE, SOD, EOD)
-- [x] Documentação de produto e governança estruturada em `_suite/`
+- [x] Documentação de produto e governança estruturada em `_docs/`
 
 ---
 

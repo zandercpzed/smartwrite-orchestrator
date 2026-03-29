@@ -7,7 +7,7 @@
 ## [Não publicado] — Trabalho em andamento
 
 ### Adicionado
-- Estrutura de documentação em `_suite/` (ESTADO_ATUAL, PRODUTO, PROJETO, ROADMAP, BACKLOG, MODULOS, INTEGRACOES, CHANGELOG)
+- Estrutura de documentação em `_docs/` (ESTADO_ATUAL, PRODUTO, PROJETO, ROADMAP, BACKLOG, MODULOS, INTEGRACOES, CHANGELOG)
 - Skill de contexto do projeto em `.agent/skills/smartwriter-context/`
 - Workflows de Vibe Coding adaptados ao contexto local-first (SOD, EOD, EOW)
 
