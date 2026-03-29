@@ -1,13 +1,20 @@
 # ESTADO ATUAL — SmartWrite Orchestrator
 
-**Última atualização:** 29 de Março de 2026
-**Fase:** Estruturação — Documentação concluída, scaffolding do plugin pendente
+**Última atualização:** 29 de Março de 2026 (EOD)
+**Fase:** Scaffolding concluído — Auditoria de padrões Obsidian pendente
 
 ---
 
-## 🎯 O Que Está Acontecendo Agora
+## 🎯 O Que Foi Feito Hoje
 
-Documentação de governança criada e organizada em `_smartwrite-orchestrator/_docs/`. Próximo passo: scaffolding do código do plugin em `_smartwrite-orchestrator/src/`.
+1. ✅ Definição completa da arquitetura (Orchestrator hub + módulos via GitHub Releases)
+2. ✅ Documentação de governança criada em `_smartwrite-orchestrator/_docs/`
+3. ✅ Reorganização do workspace (removidos duplicatas, lixo e pastas erradas)
+4. ✅ Repositório Git inicializado e publicado em `github.com/zandercpzed/smartwrite-orchestrator`
+5. ✅ Scaffolding do plugin criado: `src/`, `manifest.json`, `package.json`, `esbuild.config.mjs`, `styles.css`
+6. ✅ Build validado: `tsc` + `esbuild` sem erros → `main.js` 9.5KB
+7. ✅ Skill `browser-policy` reforçada após violação
+8. ✅ 2 commits publicados no GitHub
 
 ---
 
@@ -16,28 +23,41 @@ Documentação de governança criada e organizada em `_smartwrite-orchestrator/_
 ```
 _ smartwrite/                              ← root do workspace
  ┣ _smartwrite-orchestrator/              ← Plugin orquestrador (repositório ativo)
- ┃  ┣ .git/                               ← Git local (remote: github.com/zandercpzed/smartwrite-orchestrator)
+ ┃  ┣ .git/                               ← github.com/zandercpzed/smartwrite-orchestrator
  ┃  ┣ .gitignore
- ┃  ┣ _docs/                              ← Documentação viva (este documento)
- ┃  ┃  ┣ ESTADO_ATUAL.md
- ┃  ┃  ┣ PRODUTO.md
- ┃  ┃  ┣ PROJETO.md
- ┃  ┃  ┣ ROADMAP.md
- ┃  ┃  ┣ BACKLOG.md
- ┃  ┃  ┣ CHANGELOG.md
- ┃  ┃  ┣ MODULOS.md
- ┃  ┃  ┣ INTEGRACOES.md
- ┃  ┃  ┣ _historico/                      ← Docs legados arquivados
- ┃  ┃  ┗ _ideacao/
- ┃  ┗ src/                                ← 🔲 A criar — código do plugin
- ┣ .agent/
- ┃  ┗ skills/smartwriter-context/SKILL.md ← Skill de contexto do projeto
- ┣ shared-configs/                        ← tsconfig base compartilhado
- ┣ _ smartwrite-analyzer/                 ← 🗄️ Legado (read-only)
- ┣ _ smartwrite-companion/                ← 🗄️ Legado (read-only)
- ┣ _ smartwrite-publisher/                ← 🗄️ Legado (read-only)
- ┗ _ smartwrite-installer/                ← 🗄️ Fora de escopo
+ ┃  ┣ _docs/                              ← Documentação viva
+ ┃  ┣ src/
+ ┃  ┃  ┣ main.ts                          ← Entry point
+ ┃  ┃  ┣ core/plugin.ts                   ← Motor central
+ ┃  ┃  ┣ core/module-registry.ts          ← Catálogo de módulos
+ ┃  ┃  ┣ services/auth-manager.ts         ← Credenciais centralizadas
+ ┃  ┃  ┣ installer/github-fetcher.ts      ← GitHub API + download
+ ┃  ┃  ┣ ui/OrchestratorSidebar.ts        ← Sidebar com abas
+ ┃  ┃  ┗ types/index.ts                   ← Contratos TypeScript
+ ┃  ┣ manifest.json / package.json / tsconfig.json / esbuild.config.mjs
+ ┃  ┗ styles.css
+ ┣ .agent/skills/                         ← Skills ativas
+ ┃  ┣ browser-policy/                     ← ⛔ SEM browser sem autorização explícita
+ ┃  ┣ smartwriter-context/                ← Contexto do projeto
+ ┃  ┗ golden-rules/
+ ┣ shared-configs/
+ ┗ [_ smartwrite-*/]                      ← Legados (read-only)
 ```
+
+---
+
+## 🔴 BLOQUEIO — Próxima Sessão Começa Aqui
+
+> [!IMPORTANT]
+> **Antes de escrever qualquer linha de código nova**, a próxima sessão DEVE:
+>
+> 1. **Auditar o scaffolding atual** contra os padrões oficiais do Obsidian:
+>    - `github.com/obsidianmd/obsidian-sample-plugin`
+>    - `docs.obsidian.md/Plugins/Releasing/Plugin+guidelines`
+> 2. **Criar a skill `obsidian-plugin-standards`** com as regras compiladas
+> 3. **Corrigir qualquer desvio** encontrado no scaffolding
+>
+> **Motivo:** Plugins anteriores do Zander foram rejeitados no processo de revisão da comunidade. Conformidade é pré-requisito para qualquer avanço.
 
 ---
 
@@ -51,18 +71,7 @@ _ smartwrite/                              ← root do workspace
 | UI dos módulos | Hospedada dentro do Orchestrator (sidebar com abas) |
 | LLM | Implementação futura (pós-Publisher) |
 | Backend | Nenhum — 100% local |
-| Caminhos nos docs | Relativos à root do workspace |
-
----
-
-## 🔲 Próximo Passo Imediato
-
-Criar o scaffolding do plugin em `_smartwrite-orchestrator/`:
-- `src/` com estrutura de módulos
-- `manifest.json`, `package.json`, `esbuild.config.mjs`, `tsconfig.json`
-- `main.ts` como entry point do Obsidian
-
-Após scaffolding: `git push --force` para o GitHub.
+| Browser | Nunca abrir sem autorização explícita do Zander |
 
 ---
 

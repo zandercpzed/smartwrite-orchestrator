@@ -50,27 +50,37 @@
 | DEC-004 | LLM | Implementação futura (pós-Publisher) | 29 Mar 2026 |
 | DEC-005 | Backend | Nenhum — 100% local | 29 Mar 2026 |
 | DEC-006 | Caminhos nos docs | Relativos à root do workspace | 29 Mar 2026 |
+| DEC-007 | Browser policy | Nunca abrir sem autorização explícita | 29 Mar 2026 |
+
+---
+
+### DECx-006 — Conformidade com padrões oficiais Obsidian
+**Contexto:** Plugins anteriores do Zander foram rejeitados no processo de revisão da comunidade. Esta sessão iniciou a pesquisa dos padrões oficiais mas foi interrompida antes da conclusão.
+**Pergunta:** Antes de avançar no código, auditar o scaffolding atual contra: `obsidianmd/obsidian-sample-plugin` e `docs.obsidian.md/Plugins/Releasing/Plugin+guidelines`
+**Próximo passo:** Criar skill `obsidian-plugin-standards` com as regras compiladas.
+**Status:** ⏳ Prioridade alta para próxima sessão
 
 ---
 
 ## 📋 Fila Técnica (Priorizada)
 
 ### Alta Prioridade — Desbloqueiam o Publisher
-1. Scaffolding do `smartwrite-orchestrator/`
-2. Scaffolding do `smartwrite-publisher/`
-3. Ler código do `roomi-fields/content-publisher` como referência de auth e multi-plataforma
-4. Implementar `github-fetcher.ts` e `module-installer.ts`
+1. ✅ Scaffolding do `_smartwrite-orchestrator/` (src/, build config, manifest, styles)
+2. ⏳ Auditar scaffolding contra padrões oficiais Obsidian (DECx-006)
+3. ⏳ Implementar `module-installer.ts` (descompactar .zip → `.obsidian/plugins/`)
+4. ⏳ Criar repositório e scaffolding do `smartwrite-publisher/`
+5. ⏳ Ler código do `roomi-fields/content-publisher` como referência de auth
 
 ### Média Prioridade — Publisher completo
-5. Auth Manager: Substack One-Click Login
-6. Auth Manager: WordPress Application Passwords
-7. Conversão Markdown → HTML fiel
-8. Leitura de frontmatter como cockpit
+6. ⏳ Auth Manager: Substack One-Click Login
+7. ⏳ Auth Manager: WordPress Application Passwords
+8. ⏳ Conversão Markdown → HTML fiel
+9. ⏳ Leitura de frontmatter como cockpit de publicação
 
 ### Baixa Prioridade — Pós-Publisher
-9. Módulo Companion (migrar lógica de `_ smartwrite-companion/src/`)
-10. Tela de "loja" de módulos no Orchestrator
-11. Módulo Analyzer
+10. ⏳ Módulo Companion (migrar lógica de `_ smartwrite-companion/src/`)
+11. ⏳ Tela de "loja" de módulos no Orchestrator
+12. ⏳ Módulo Analyzer
 
 ---
 
