@@ -1,14 +1,16 @@
 /* eslint-disable obsidianmd/ui/sentence-case */
 // SCRIPT: src/ui/OrchestratorSettingsTab.ts
 // DESCRIÇÃO: Painel de configurações do SmartWrite Orchestrator.
-//            Gerencia credenciais Substack e WordPress centralmente.
-//            Acessível em Obsidian Settings > SmartWrite.
+//            Mostra apenas configurações do próprio Orchestrator.
+//            Configurações de módulos (ex: Publisher) aparecem aqui
+//            somente quando o módulo estiver instalado.
 // CHAMADO POR: src/core/plugin.ts (addSettingTab)
 // CONTRATO: Exporta OrchestratorSettingsTab que estende PluginSettingTab
 
 import { App, PluginSettingTab, Setting } from "obsidian";
 import type { Plugin } from "obsidian";
 import type { SmartWriteOrchestratorPlugin } from "../core/plugin";
+import { KNOWN_MODULES } from "../core/module-registry";
 
 export class OrchestratorSettingsTab extends PluginSettingTab {
 	private orchestrator: SmartWriteOrchestratorPlugin;
@@ -22,125 +24,57 @@ export class OrchestratorSettingsTab extends PluginSettingTab {
 		const { containerEl } = this;
 		containerEl.empty();
 
-		this.renderSubstackSection(containerEl);
-		this.renderWordPressSection(containerEl);
+		this.renderOrchestratorSection(containerEl);
+		this.renderInstalledModulesSection(containerEl);
 	}
 
-	// ── Substack ─────────────────────────────────────────────────────────────
+	// ── Orchestrator settings ─────────────────────────────────────────────────
 
-	private renderSubstackSection(el: HTMLElement): void {
-		 
-		new Setting(el).setName("Substack").setHeading();
+	private renderOrchestratorSection(el: HTMLElement): void {
+		new Setting(el).setName("Geral").setHeading();
 
 		new Setting(el)
-			 
-			.setName("URL da publicação")
-			.setDesc("Ex: meusite.substack.com")
+			.setName("GitHub owner")
+			.setDesc("Conta GitHub de onde os módulos SmartWrite são instalados.")
 			.addText((text) =>
 				text
-					.setPlaceholder("meusite.substack.com")
-					.setValue("")
-					.onChange(async (_value) => {
-						// TODO: armazenar URL da publicação Substack
+					.setPlaceholder("zandercpzed")
+					.setValue(this.orchestrator.settings.githubOwner)
+					.onChange(async (value) => {
+						this.orchestrator.settings.githubOwner = value.trim();
+						await this.orchestrator.saveSettings();
 					})
 			);
+	}
 
-		new Setting(el)
-			 
-			.setName("Cookie (connect.sid)")
-			.setDesc(
-				"Obtenha em DevTools → Application → Cookies depois de fazer login no Substack."
-			)
-			.addText((text) => {
-				text.inputEl.type = "password";
-				return text
-					.setPlaceholder("s%3A…")
-					.setValue(this.orchestrator.settings.auth.substack?.sessionCookie ?? "")
-					.onChange(async (value) => {
-						this.ensureSubstack();
-						this.orchestrator.settings.auth.substack!.sessionCookie = value.trim();
-						await this.orchestrator.saveSettings();
-					});
+	// ── Installed modules settings ────────────────────────────────────────────
+
+	private renderInstalledModulesSection(el: HTMLElement): void {
+		const installedIds = Object.keys(this.orchestrator.settings.installedModules);
+
+		if (installedIds.length === 0) {
+			new Setting(el).setName("Módulos").setHeading();
+			el.createEl("p", {
+				text: "Nenhum módulo instalado. Instale módulos pela sidebar do SmartWrite para ver suas configurações aqui.",
+				cls: "setting-item-description",
 			});
-	}
+			return;
+		}
 
-	// ── WordPress ────────────────────────────────────────────────────────────
+		for (const id of installedIds) {
+			const mod = KNOWN_MODULES.find((m) => m.id === id);
+			if (!mod) continue;
 
-	private renderWordPressSection(el: HTMLElement): void {
-		 
-		new Setting(el).setName("WordPress").setHeading();
+			const version = this.orchestrator.settings.installedModules[id] ?? "";
+			new Setting(el)
+				.setName(`${mod.displayName} v${version}`)
+				.setHeading();
 
-		const wp = this.getDefaultWordPress();
-
-		new Setting(el)
-			 
-			.setName("URL do site")
-			 
-			.setDesc("Ex: https://meusite.com.br")
-			.addText((text) =>
-				text
-					.setPlaceholder("https://meusite.com.br")
-					.setValue(wp?.url ?? "")
-					.onChange(async (value) => {
-						this.setDefaultWordPress({ url: value.trim() });
-						await this.orchestrator.saveSettings();
-					})
-			);
-
-		new Setting(el)
-			 
-			.setName("Usuário")
-			 
-			.setDesc("Nome de usuário do WordPress (login).")
-			.addText((text) =>
-				text
-					.setPlaceholder("admin")
-					.setValue(wp?.username ?? "")
-					.onChange(async (value) => {
-						this.setDefaultWordPress({ username: value.trim() });
-						await this.orchestrator.saveSettings();
-					})
-			);
-
-		new Setting(el)
-			.setName("Application password")
-			 
-			.setDesc("Gerada em WP Admin → Usuários → seu perfil → Application Passwords.")
-			.addText((text) => {
-				text.inputEl.type = "password";
-				return text
-					.setPlaceholder("xxxx xxxx xxxx xxxx xxxx xxxx")
-					.setValue(wp?.appPassword ?? "")
-					.onChange(async (value) => {
-						this.setDefaultWordPress({ appPassword: value.trim() });
-						await this.orchestrator.saveSettings();
-					});
+			// Cada módulo registrará seus próprios campos aqui no futuro
+			el.createEl("p", {
+				text: "As configurações deste módulo serão registradas aqui após sua implementação completa.",
+				cls: "setting-item-description",
 			});
-	}
-
-	// ── Helpers ───────────────────────────────────────────────────────────────
-
-	private ensureSubstack(): void {
-		if (!this.orchestrator.settings.auth.substack) {
-			this.orchestrator.settings.auth.substack = { sessionCookie: "" };
 		}
-	}
-
-	private getDefaultWordPress() {
-		return this.orchestrator.settings.auth.wordpress?.["default"];
-	}
-
-	private setDefaultWordPress(
-		patch: Partial<{ url: string; username: string; appPassword: string }>
-	): void {
-		if (!this.orchestrator.settings.auth.wordpress) {
-			this.orchestrator.settings.auth.wordpress = {};
-		}
-		const current = this.orchestrator.settings.auth.wordpress["default"] ?? {
-			url: "",
-			username: "",
-			appPassword: "",
-		};
-		this.orchestrator.settings.auth.wordpress["default"] = { ...current, ...patch };
 	}
 }
