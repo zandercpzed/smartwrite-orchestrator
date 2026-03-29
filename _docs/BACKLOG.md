@@ -66,21 +66,21 @@
 
 ### Alta Prioridade — Desbloqueiam o Publisher
 1. ✅ Scaffolding do `_smartwrite-orchestrator/` (src/, build config, manifest, styles)
-2. ⏳ Auditar scaffolding contra padrões oficiais Obsidian (DECx-006)
-3. ⏳ Implementar `module-installer.ts` (descompactar .zip → `.obsidian/plugins/`)
-4. ⏳ Criar repositório e scaffolding do `smartwrite-publisher/`
-5. ⏳ Ler código do `roomi-fields/content-publisher` como referência de auth
+2. ✅ Auditar scaffolding contra padrões oficiais Obsidian (DECx-006) — skill criada
+3. ✅ Implementar `module-installer.ts` (descompactar .zip → `.obsidian/plugins/`)
+4. ✅ Criar repositório e scaffolding do `smartwrite-publisher/`
+5. ✅ Portar adapters Substack + WordPress (SubstackAdapter, WordPressAdapter)
 
 ### Média Prioridade — Publisher completo
-6. ⏳ Auth Manager: Substack One-Click Login
-7. ⏳ Auth Manager: WordPress Application Passwords
-8. ⏳ Conversão Markdown → HTML fiel
-9. ⏳ Leitura de frontmatter como cockpit de publicação
+6. ⏳ Auth Manager: configuração Substack/WordPress via SettingsTab
+7. ⏳ Converter Markdown → HTML fiel (reutilizar `converter.ts` do legado)
+8. ⏳ Leitura completa de frontmatter como cockpit de publicação
+9. ⏳ Feedback visual de publicação (Notice + URL do post publicado)
 
 ### Baixa Prioridade — Pós-Publisher
-10. ⏳ Módulo Companion (migrar lógica de `_ smartwrite-companion/src/`)
-11. ⏳ Tela de "loja" de módulos no Orchestrator
-12. ⏳ Módulo Analyzer
+10. ⏳ Módulo Companion (portar de `_ smartwrite-companion/src/`)
+11. ⏳ Módulo Analyzer (portar de `_ smartwrite-analyzer/src/`)
+12. ⏳ Refazer `_ smartwrite-installer` — atual não funciona em outras máquinas
 
 ---
 

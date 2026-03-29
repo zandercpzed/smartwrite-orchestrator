@@ -63,8 +63,8 @@ export class SmartWriteOrchestratorPlugin {
 		// TODO: adicionar SettingTab após definir as settings de UI
 	}
 
-	async teardown() {
-		this.plugin.app.workspace.detachLeavesOfType(SIDEBAR_VIEW_TYPE);
+	teardown() {
+		// Obsidian desregistra as views automaticamente no unload
 	}
 
 	// ── Settings ─────────────────────────────────────────────────────────
