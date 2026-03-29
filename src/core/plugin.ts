@@ -7,6 +7,7 @@
 import { Plugin } from "obsidian";
 import { OrchestratorSettings, DEFAULT_SETTINGS } from "../types";
 import { OrchestratorSidebar, SIDEBAR_VIEW_TYPE } from "../ui/OrchestratorSidebar";
+import { OrchestratorSettingsTab } from "../ui/OrchestratorSettingsTab";
 import { AuthManager } from "../services/auth-manager";
 import { ModuleInstaller } from "../installer/module-installer";
 
@@ -60,7 +61,9 @@ export class SmartWriteOrchestratorPlugin {
 		});
 
 		// 6. Painel de configurações
-		// TODO: adicionar SettingTab após definir as settings de UI
+		this.plugin.addSettingTab(
+			new OrchestratorSettingsTab(this.plugin.app, this.plugin, this)
+		);
 	}
 
 	teardown() {
