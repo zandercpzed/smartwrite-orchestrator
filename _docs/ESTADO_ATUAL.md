@@ -1,20 +1,22 @@
 # ESTADO ATUAL — SmartWrite Orchestrator
 
-**Última atualização:** 29 de Março de 2026 (EOD)
-**Fase:** Scaffolding concluído — Auditoria de padrões Obsidian pendente
+**Última atualização:** 29 de Março de 2026 (EOD — Sessão 2)
+**Fase:** Scaffold finalizado — v0.0.4 na vault — Próxima: OPEN-002 (descoberta de módulos)
 
 ---
 
-## 🎯 O Que Foi Feito Hoje
+## 🎯 O Que Foi Feito Hoje (Sessão 2)
 
-1. ✅ Definição completa da arquitetura (Orchestrator hub + módulos via GitHub Releases)
-2. ✅ Documentação de governança criada em `_smartwrite-orchestrator/_docs/`
-3. ✅ Reorganização do workspace (removidos duplicatas, lixo e pastas erradas)
-4. ✅ Repositório Git inicializado e publicado em `github.com/zandercpzed/smartwrite-orchestrator`
-5. ✅ Scaffolding do plugin criado: `src/`, `manifest.json`, `package.json`, `esbuild.config.mjs`, `styles.css`
-6. ✅ Build validado: `tsc` + `esbuild` sem erros → `main.js` 9.5KB
-7. ✅ Skill `browser-policy` reforçada após violação
-8. ✅ 2 commits publicados no GitHub
+1. ✅ Skill `obsidian-plugin-standards` criada — padrões Obsidian compilados e documentados
+2. ✅ Auditoria do scaffolding contra padrões oficiais do Obsidian (obsidian-sample-plugin)
+3. ✅ `module-installer.ts` integrado à sidebar com botão "Instalar"
+4. ✅ `OrchestratorSettingsTab` reescrito — zero dados pessoais, zero hardcode
+5. ✅ Sidebar atualizada para boxes horizontais por módulo
+6. ✅ `styles.css` refatorado para nova estrutura de cards
+7. ✅ Skill `smartwrite-versioning` criada com convenção formal
+8. ✅ Build e lint validados: zero erros
+9. ✅ v0.0.4 deployado e funcionando na vault de testes
+10. ✅ OPEN-002 identificado e documentado no BACKLOG
 
 ---
 
@@ -46,18 +48,18 @@ _ smartwrite/                              ← root do workspace
 
 ---
 
-## 🔴 BLOQUEIO — Próxima Sessão Começa Aqui
+## 🔴 PRÓXIMA SESSÃO COMEÇA AQUI
 
 > [!IMPORTANT]
 > **Antes de escrever qualquer linha de código nova**, a próxima sessão DEVE:
 >
-> 1. **Auditar o scaffolding atual** contra os padrões oficiais do Obsidian:
->    - `github.com/obsidianmd/obsidian-sample-plugin`
->    - `docs.obsidian.md/Plugins/Releasing/Plugin+guidelines`
-> 2. **Criar a skill `obsidian-plugin-standards`** com as regras compiladas
-> 3. **Corrigir qualquer desvio** encontrado no scaffolding
+> 1. **Resolver OPEN-002** — Redefinir descoberta de módulos no Orchestrator:
+>    - Apresentar plano APAE antes de codificar qualquer linha
+>    - Implementar: lista default de módulos oficiais SmartWrite + campo para repo GitHub customizado
+> 2. **Não mexer em plugins legados** — só leitura para referência
 >
-> **Motivo:** Plugins anteriores do Zander foram rejeitados no processo de revisão da comunidade. Conformidade é pré-requisito para qualquer avanço.
+> **Contexto:** v0.0.4 está estável e funcionando na vault. A arquitetura está limpa.
+> O único bloqueio é OPEN-002 antes de avançar para o Publisher.
 
 ---
 

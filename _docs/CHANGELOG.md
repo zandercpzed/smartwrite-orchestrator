@@ -6,6 +6,26 @@
 
 ## [Não publicado] — Trabalho em andamento
 
+## [0.0.4] — 29 de Março de 2026 (Sessão 2 — EOD)
+
+### Adicionado
+- Skill `obsidian-plugin-standards` compilada e ativa em `.agent/skills/`
+- `module-installer.ts` conectado ao botão "Instalar" na sidebar
+- `OrchestratorSettingsTab` sem dados pessoais — exibe apenas módulos instalados
+- Sidebar redesenhada: boxes horizontais por módulo (Publisher, Companion, Analyzer)
+- `styles.css` corrigido para nova estrutura de cards de módulos
+- Skill `smartwrite-versioning` criada com convenção `0.0.X / 0.X.0 / 1.0.0`
+
+### Decisões
+- OPEN-002 identificado: redefinir descoberta de módulos (lista default + repo customizado)
+- Plugins legados confirmados como somente leitura
+
+### Deploy
+- v0.0.4 instalado e funcionando na vault de testes
+- Build e lint: zero erros
+
+---
+
 ## [0.1.0-foundation] — 29 de Março de 2026
 
 ### Adicionado

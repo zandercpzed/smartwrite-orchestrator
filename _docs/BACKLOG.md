@@ -1,6 +1,6 @@
 # Backlog Técnico — SmartWrite Orchestrator
 
-**Última atualização:** 29 de Março de 2026 (EOD)
+**Última atualização:** 29 de Março de 2026 (EOD — Sessão 2)
 
 ---
 
@@ -39,12 +39,12 @@
 ### Alta Prioridade — Fechar Orchestrator MVP
 1. ✅ Scaffold + build + lint sem erros
 2. ✅ Auditoria padrões Obsidian (skill `obsidian-plugin-standards`)
-3. ✅ `module-installer.ts` (GitHub raw API)
+3. ✅ `module-installer.ts` (GitHub raw API) integrado à sidebar
 4. ✅ Sidebar com boxes horizontais (uma aba)
 5. ✅ `OrchestratorSettingsTab` (sem dados pessoais, sem campos de módulo)
 6. ✅ CSS corrigido para nova estrutura de boxes
 7. ✅ v0.0.4 funcionando na vault de testes
-8. ⏳ **Redefinir descoberta de módulos** (OPEN-002) — planejar antes de codificar
+8. ⏳ **Redefinir descoberta de módulos** (OPEN-002) — **PRÓXIMA SESSÃO**
 
 ### Média Prioridade — Publisher
 9. ⏳ Definir escopo MVP do Publisher (plataformas, fluxo)
