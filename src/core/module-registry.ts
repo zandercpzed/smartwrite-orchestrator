@@ -4,7 +4,7 @@
 // CHAMADO POR: core/plugin.ts, ui/store/
 // CONTRATO: Exporta KNOWN_MODULES (array) e helpers de lookup
 
-import type { SmartWriteModuleManifest } from "../types";
+
 
 /**
  * Módulos SmartWrite conhecidos pelo Orchestrator.

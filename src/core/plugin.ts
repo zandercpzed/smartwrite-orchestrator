@@ -32,15 +32,17 @@ export class SmartWriteOrchestratorPlugin {
 		);
 
 		// 4. Adicionar ícone na ribbon (barra lateral esquerda do Obsidian)
-		this.plugin.addRibbonIcon("layers", "SmartWrite Orchestrator", () => {
-			this.activateSidebar();
+		// eslint-disable-next-line obsidianmd/ui/sentence-case
+		this.plugin.addRibbonIcon("layers", "SmartWrite orchestrator", () => {
+			void this.activateSidebar();
 		});
 
 		// 5. Comandos globais
 		this.plugin.addCommand({
 			id: "open-smartwrite",
+			// eslint-disable-next-line obsidianmd/ui/sentence-case
 			name: "Abrir SmartWrite",
-			callback: () => this.activateSidebar(),
+			callback: () => { void this.activateSidebar(); },
 		});
 
 		// 6. Painel de configurações
@@ -54,10 +56,11 @@ export class SmartWriteOrchestratorPlugin {
 	// ── Settings ─────────────────────────────────────────────────────────
 
 	async loadSettings() {
+		const data = await this.plugin.loadData() as Partial<OrchestratorSettings>;
 		this.settings = Object.assign(
 			{},
 			DEFAULT_SETTINGS,
-			await this.plugin.loadData()
+			data
 		);
 	}
 
@@ -76,6 +79,6 @@ export class SmartWriteOrchestratorPlugin {
 			await leaf.setViewState({ type: SIDEBAR_VIEW_TYPE, active: true });
 		}
 
-		workspace.revealLeaf(leaf);
+		void workspace.revealLeaf(leaf);
 	}
 }

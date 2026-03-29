@@ -10,7 +10,7 @@ import { KNOWN_MODULES } from "../core/module-registry";
 
 export const SIDEBAR_VIEW_TYPE = "smartwrite-orchestrator";
 
-type TabId = "store" | string; // "store" + module IDs
+type TabId = string; // "store" + module IDs
 
 export class OrchestratorSidebar extends ItemView {
 	private orchestrator: SmartWriteOrchestratorPlugin;
@@ -26,6 +26,7 @@ export class OrchestratorSidebar extends ItemView {
 	}
 
 	getDisplayText(): string {
+		// eslint-disable-next-line obsidianmd/ui/sentence-case
 		return "SmartWrite";
 	}
 
@@ -57,7 +58,7 @@ export class OrchestratorSidebar extends ItemView {
 		);
 
 		// Aba da loja (sempre visível)
-		this.renderTab(tabBar, "store", "Módulos", "package");
+		this.renderTab(tabBar, "store", "Módulos disponíveis", "package");
 
 		// Abas dos módulos instalados
 		for (const id of installedIds) {
@@ -99,7 +100,8 @@ export class OrchestratorSidebar extends ItemView {
 	// ── Store Tab ──────────────────────────────────────────────────────────
 
 	private renderStore(panel: HTMLElement) {
-		panel.createEl("h3", { text: "Módulos SmartWrite" });
+		// eslint-disable-next-line obsidianmd/ui/sentence-case
+		panel.createEl("h3", { text: "Módulos SmartWrite disponíveis" });
 		panel.createEl("p", {
 			text: "Instale módulos diretamente do GitHub.",
 			cls: "setting-item-description",
@@ -119,11 +121,10 @@ export class OrchestratorSidebar extends ItemView {
 			const isInstalled = installedIds.includes(module.id);
 
 			if (isInstalled) {
-				const badge = card.createSpan({
+				card.createSpan({
 					text: "Instalado",
 					cls: "smartwrite-badge smartwrite-badge-installed",
 				});
-				badge.style.cssText = "background: var(--color-green); color: white;";
 			} else {
 				const btn = card.createEl("button", {
 					text: "Instalar",
@@ -131,7 +132,7 @@ export class OrchestratorSidebar extends ItemView {
 				});
 				btn.addEventListener("click", () => {
 					// TODO: chamar module-installer.ts
-					console.log(`[SmartWrite] Instalar: ${module.id}`);
+					console.debug(`[SmartWrite] Instalar: ${module.id}`);
 				});
 			}
 		}

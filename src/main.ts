@@ -15,7 +15,7 @@ export default class SmartWriteOrchestrator extends Plugin {
 		await this.orchestrator.initialize();
 	}
 
-	async onunload() {
-		await this.orchestrator.teardown();
+	onunload() {
+		void this.orchestrator.teardown();
 	}
 }
