@@ -131,8 +131,16 @@ export class OrchestratorSidebar extends ItemView {
 					cls: "smartwrite-btn smartwrite-btn-primary",
 				});
 				btn.addEventListener("click", () => {
-					// TODO: chamar module-installer.ts
-					console.debug(`[SmartWrite] Instalar: ${module.id}`);
+					btn.setText("Instalando…");
+					btn.setAttr("disabled", "true");
+					this.orchestrator.installer
+						.install(module.id, module.repo)
+						.then(() => { this.render(); })
+						.catch((err: Error) => {
+							console.error(`[SmartWrite] Falha ao instalar ${module.id}:`, err);
+							btn.setText("Instalar");
+							btn.removeAttribute("disabled");
+						});
 				});
 			}
 		}

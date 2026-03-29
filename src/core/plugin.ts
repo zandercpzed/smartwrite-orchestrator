@@ -8,11 +8,13 @@ import { Plugin } from "obsidian";
 import { OrchestratorSettings, DEFAULT_SETTINGS } from "../types";
 import { OrchestratorSidebar, SIDEBAR_VIEW_TYPE } from "../ui/OrchestratorSidebar";
 import { AuthManager } from "../services/auth-manager";
+import { ModuleInstaller } from "../installer/module-installer";
 
 export class SmartWriteOrchestratorPlugin {
 	private plugin: Plugin;
 	settings!: OrchestratorSettings;
 	authManager!: AuthManager;
+	installer!: ModuleInstaller;
 
 	constructor(plugin: Plugin) {
 		this.plugin = plugin;
@@ -24,6 +26,18 @@ export class SmartWriteOrchestratorPlugin {
 
 		// 2. Inicializar serviços
 		this.authManager = new AuthManager(this);
+		this.installer = new ModuleInstaller(
+			this.plugin.app,
+			this.settings,
+			async (moduleId, version) => {
+				if (version) {
+					this.settings.installedModules[moduleId] = version;
+				} else {
+					delete this.settings.installedModules[moduleId];
+				}
+				await this.saveSettings();
+			}
+		);
 
 		// 3. Registrar a sidebar view
 		this.plugin.registerView(
